@@ -1,0 +1,316 @@
+ @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+ * {
+     padding: 0;
+     margin: 0;
+     box-sizing: border-box;
+ }
+ 
+ html,
+ body {
+     height: 100%;
+ }
+ 
+ body {
+     height: 100%;
+     display: flex;
+     font-family: 'Roboto', sans-serif;
+ }
+ 
+ html.low-vision {
+     filter: invert(.9);
+ }
+ 
+ html.low-vision .btn-low-vision {
+     filter: invert(0);
+ }
+ 
+ #low-vision {
+     width: 880px;
+     height: 30px;
+     position: absolute;
+     top: 0;
+     left: 0;
+     z-index: 10;
+ }
+ 
+ #low-vision span {
+     position: relative;
+     color: #000000;
+     font-size: 15px;
+     font-weight: 600;
+     padding-right: 14px;
+     top: 13px;
+     float: right;
+     text-transform: uppercase;
+ }
+ 
+ #low-vision .btn-low-vision {
+     width: 30px;
+     height: 30px;
+     position: relative;
+     top: 10px;
+     background-color: #fff;
+     right: 11px;
+     float: right;
+     background-image: url(../assets/invert.png);
+     background-size: cover;
+     cursor: pointer;
+     border-radius: 3px;
+ }
+ 
+ .color-white {
+     color: #ffffff !important;
+ }
+ 
+ .color-black {
+     color: #000000 !important;
+     font-weight: 700;
+     letter-spacing: 0.03em;
+ }
+ 
+ .bg-white {
+     background-color: #ffffff !important;
+ }
+ 
+ .bg-black {
+     background-color: #000000 !important;
+ }
+ 
+ .bg-grey {
+     background-color: #6d6d6d !important;
+ }
+ 
+ #container {
+     width: 880px;
+     height: 550px;
+     background-color: #f2f2f2;
+ }
+ 
+ #game {
+     display: none;
+     width: 100%;
+     height: auto;
+ }
+ 
+ .memory-game {
+     width: 880px;
+     height: 550px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     perspective: 1000px;
+     background: #f7f7f7;
+     overflow-x: hidden;
+     overflow-y: auto;
+ }
+ 
+ .container {
+     height: auto;
+     width: auto;
+     display: flex;
+     flex-wrap: wrap;
+     align-content: start;
+     justify-content: center;
+     position: relative;
+ }
+ 
+ .memory-card {
+     /* width: calc(16% - 10px);
+     height: calc(33.333% - 10px);*/
+     width: 147px;
+     height: 242px;
+     margin: 5px;
+     position: relative;
+     box-shadow: 1px 1px 1px rgba(0, 0, 0, .3);
+     border-radius: 5px;
+     transform: scale(1);
+     transform-style: preserve-3d;
+     transition: transform .5s;
+     background: #2EA1CD;
+     cursor: pointer;
+     color: #000000;
+ }
+ 
+ @keyframes shake {
+     10%,
+     90% {
+         transform: translate3d(-1px, 0, 0);
+     }
+     20%,
+     80% {
+         transform: translate3d(2px, 0, 0);
+     }
+     30%,
+     50%,
+     70% {
+         transform: translate3d(-4px, 0, 0);
+     }
+     40%,
+     60% {
+         transform: translate3d(4px, 0, 0);
+     }
+ }
+ 
+ .memory-card.wrong {
+     animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+     transition: transform .2s;
+ }
+ 
+ .memory-card:active {
+     transform: scale(0.97);
+     transition: transform .2s;
+ }
+ 
+ .memory-card.flip {
+     transform: rotateY(180deg);
+ }
+ 
+ .back-face {
+     width: 100%;
+     height: 100%;
+     position: absolute;
+     backface-visibility: hidden;
+     border-radius: 5px;
+ }
+ 
+ .front-face-div {
+     width: 100%;
+     height: 100%;
+     position: absolute;
+     background: #ffffff;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     /*font-size: 14px;*/
+     font-size: 20px;
+     text-align: center;
+     border-radius: 5px;
+ }
+ 
+ .front-face-div img {
+     padding: 5px;
+ }
+ 
+ .front-face {
+     transform: rotateY(180deg);
+     height: 100%;
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     justify-content: center;
+     align-items: center;
+     backface-visibility: hidden;
+ }
+ 
+ .start-game {
+     display: block;
+     position: absolute;
+     top: 0;
+     left: 0;
+     color: #ffffff;
+     background-image: url(../assets/capa.png);
+     background-repeat: no-repeat;
+     background-size: cover;
+     background-color: #f7f7f7;
+     text-align: left;
+     width: 880px;
+     height: 550px;
+     z-index: 5;
+     transition: opacity ease-in 0.8s;
+ }
+ 
+ .start-game h5 {
+     color: #ffffff;
+     padding: 0 20px;
+     font-size: 30px;
+ }
+ 
+ .start-game p {
+     color: rgba(255, 255, 255, 0.56);
+     font-size: 21px;
+     padding: 20px 20px 0 20px;
+ }
+ 
+ .start-btn {
+     width: 100%;
+     height: 62px;
+     position: absolute;
+     bottom: 0;
+     color: #2EA1CD;
+     text-align: center;
+     font-size: 19px;
+     letter-spacing: 1px;
+     line-height: 60px;
+     text-transform: uppercase;
+     cursor: pointer;
+     background-color: #f9f9f9;
+ }
+ 
+ .start-btn:hover {
+     background-color: #eee;
+ }
+ 
+ .end-game {
+     position: absolute;
+     top: 0;
+     left: 0;
+     color: #ffffff;
+     background: #2EA1CD;
+     text-align: center;
+     visibility: hidden;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     width: 880px;
+     height: 550px;
+     z-index: 2;
+     font-size: 40px;
+     opacity: 0;
+     padding: 0 20px;
+     transition: opacity ease-in 0.8s;
+ }
+ 
+ .end-game p {
+     margin: auto;
+ }
+ 
+ @media only screen and (max-width: 767px) {
+     .start-game {
+         background-position: center;
+     }
+     #container,
+     #game,
+     .end-game,
+     .start-game,
+     .memory-game {
+         min-height: 100%;
+         width: 100%;
+     }
+     .container {
+         align-content: flex-start;
+         margin: unset;
+     }
+     .memory-card {
+         width: calc(33.333% - 10px);
+         height: calc(33.333% - 10px);
+     }
+     .front-face {
+         font-size: 20px;
+     }
+     #low-vision {
+         width: 100%;
+     }
+     #low-vision .btn-low-vision {
+         width: 20px;
+         height: 20px;
+     }
+     #low-vision span {
+         font-size: 12px;
+         top: 11px;
+         font-weight: normal;
+     }
+     html.low-vision #app .contentWords {
+         position: fixed !important;
+         bottom: 0 !important;
+     }
+ }

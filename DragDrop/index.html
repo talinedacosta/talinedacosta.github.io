@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="authoring-tool" content="Adobe_Animate_CC">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  
+  <link rel="stylesheet" href="biblioteca/font-awesome-4.7.0/css/font-awesome.min.css">  
+  <link rel="stylesheet" href="biblioteca/jquery-ui-1.12.1.custom/jquery-ui.css">
+  <link media="all" rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <!-- jquery -->
+  
+  <script src="biblioteca/jquery-ui-1.12.1.custom/jquery-1.12.4.js"></script>
+  <script src="biblioteca/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+     <!-- data -->
+  <script src="biblioteca/moment.js"></script>
+  <script type="text/javascript" src="biblioteca/pt-br.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+    <!-- instrução -->
+  <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+  <script src="js/instrucao.js"></script>
+  <script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("5E4029D28D0F6D42AF0332AC516FC854");
+	var lib=comp.getLibrary();
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
+	loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
+	var lib=comp.getLibrary();
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleFileLoad(evt, comp) {
+	var images=comp.getImages();	
+	if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }	
+}
+function handleComplete(evt,comp) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	exportRoot = new lib._37212();
+	stage = new lib.Stage(canvas);	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		stage.addChild(exportRoot);
+		createjs.Ticker.setFPS(lib.properties.fps);
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	function makeResponsive(isResp, respDim, isScale, scaleType) {		
+		var lastW, lastH, lastS=1;		
+		window.addEventListener('resize', resizeCanvas);		
+		resizeCanvas();		
+		function resizeCanvas() {			
+			var w = lib.properties.width, h = lib.properties.height;			
+			var iw = window.innerWidth, ih=window.innerHeight;			
+			var pRatio = window.devicePixelRatio || 1, xRatio=iw/w, yRatio=ih/h, sRatio=1;			
+			if(isResp) {                
+				if((respDim=='width'&&lastW==iw) || (respDim=='height'&&lastH==ih)) {                    
+					sRatio = lastS;                
+				}				
+				else if(!isScale) {					
+					if(iw<w || ih<h)						
+						sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==1) {					
+					sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==2) {					
+					sRatio = Math.max(xRatio, yRatio);				
+				}			
+			}			
+			canvas.width = w*pRatio*sRatio;			
+			canvas.height = h*pRatio*sRatio;
+			canvas.style.width = dom_overlay_container.style.width = anim_container.style.width =  w*sRatio+'px';				
+			canvas.style.height = anim_container.style.height = dom_overlay_container.style.height = h*sRatio+'px';
+			stage.scaleX = pRatio*sRatio;			
+			stage.scaleY = pRatio*sRatio;			
+			lastW = iw; lastH = ih; lastS = sRatio;            
+			stage.tickOnUpdate = false;            
+			stage.update();            
+			stage.tickOnUpdate = true;		
+		}
+	}
+	makeResponsive(false,'both',false,1);	
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+</script>
+    
+  <script src="js/commands.js"></script>
+  
+</head>
+    
+    
+<body onload="init();">
+    
+    <div id="content">
+        <div id="iniciar">
+            <div id="iniciar_btn"></div>
+        </div>
+        <div id="instrucao">
+            <div id="instrucao_video">               
+                <div id="animation_container" style="width:280px; height:200px">
+		<canvas id="canvas" width="280" height="200" style="position: absolute; display: block;"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:280px; height:200px; position: absolute; left: 0px; top: 0px; display: block;">
+		</div>
+    </div>         
+            </div>
+            <div id="instrucao_btn" data-popup-open="popup-1"></div>
+        </div>
+        
+        <div class="popup" data-popup="popup-1">
+            <div class="popup-inner">
+                <h2>Insira seu nome</h2>
+                <form>
+                    <input id="name" type="text" name="name" maxlength="20" required/>                    
+                </form>
+                <p class="enviar" data-popup-close="popup-1">Enviar</p>
+            </div>
+        </div>
+        
+        <div id="blackBox"></div>
+        <div id="cardSlots"></div>        
+        <div id="menuPile"><i class="fa fa-bars" aria-hidden="true"></i><span>MENU DE OPÇÕES</span></div>
+        <div id="cardPile"> </div>
+         
+        <div id="buttons">
+           <div id="check"><h5>VERIFICAR RESPOSTAS</h5></div>
+           <div id="download"><h5>EXPORTAR ARQUIVO PDF</h5></div>
+            
+        </div>          
+        <div id="informacoes">
+            <div class="info">
+                <h3 class="h3Title">UNI9-0001</h3>
+                <p class="pText">Diagrama tartaruga</p>
+            
+            </div>
+            <div class="info">
+                <h3 class="h3Title">Autor:</h3>
+                <p id="info_nome" class="pText"></p>
+            
+            </div>        
+        </div>        
+        <div id="datas">
+            <div class="data">
+             <h3 class="h3Title">Revisado em:</h3>
+                <p id="dateToday" class="pText"></p>
+            </div>
+            <div class="data">
+             <h3 class="h3Title">Próxima revisão:</h3>
+                <p id="dateNext" class="pText"></p>
+            </div>        
+        </div>
+        
+  </div>
+</body>
+</html>

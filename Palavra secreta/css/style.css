@@ -1,0 +1,542 @@
+        @import url('https://fonts.googleapis.com/css?family=Roboto');
+        body {
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        html.low-vision {
+            filter: invert(.9);
+        }
+        
+        html.low-vision .btn-low-vision {
+            filter: invert(0);
+        }
+        
+        #root {
+            width: 880px;
+            height: 550px;
+            background-color: #f2f2f2;
+        }
+        
+        #start {
+            position: relative;
+            background-color: #2ea1cd;
+            background-image: url('../images/Capa.png');
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+        
+        .startbtn {
+            width: 100%;
+            height: 62px;
+            position: absolute;
+            bottom: 0;
+            color: #2EA1CD;
+            text-align: center;
+            font-size: 19px;
+            letter-spacing: 1px;
+            line-height: 60px;
+            text-transform: uppercase;
+            cursor: pointer;
+            background-color: #f9f9f9;
+        }
+        
+        .startbtn:hover {
+            background-color: #eee;
+        }
+        
+        .startTitle {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            text-align: left;
+            padding-left: 20px;
+            padding-top: 10px;
+            color: #ffffff;
+            font-size: 20px;
+        }
+        
+        .startTitle span {
+            color: rgba(255, 255, 255, 0.56);
+            font-size: 15px;
+        }
+        
+        #loader {
+            background-color: #2da1cd;
+            height: 3px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 5;
+            width: 0;
+            transition: width 1s;
+        }
+        
+        #app {
+            /*width: 880px;
+    height: 550px;
+    background-color: #f2f2f2;
+    position: absolute;*/
+            display: none;
+        }
+        
+        #app,
+        #carousel {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+        
+        #low-vision {
+            width: 880px;
+            height: 30px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+        
+        #low-vision span {
+            position: relative;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            padding-right: 14px;
+            top: 13px;
+            float: right;
+            text-transform: uppercase;
+        }
+        
+        #low-vision .btn-low-vision {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            top: 10px;
+            background-color: #fff;
+            right: 11px;
+            float: right;
+            background-image: url(../images/invert.png);
+            background-size: cover;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        .color-white {
+            color: #ffffff !important;
+        }
+        
+        .color-black {
+            color: #000000 !important;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+        
+        .bg-white {
+            background-color: #ffffff !important;
+        }
+        
+        .bg-black {
+            background-color: #000000 !important;
+        }
+        
+        .bg-grey {
+            background-color: #6d6d6d !important;
+        }
+        
+        #carousel,
+        .carousel-inner {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .middle {
+            position: absolute;
+            width: 640px;
+            height: 100%;
+            float: left;
+            z-index: 2;
+        }
+        
+        .tip {
+            width: 880px;
+            height: 120px;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0px 58px;
+            position: relative;
+            top: 5px;
+            /*top: 17px;*/
+        }
+        
+        .word {
+            padding: 0px 28px;
+            width: 100%;
+            height: 163px;
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+            align-content: center;
+        }
+        
+        break {
+            flex-basis: 100%;
+            width: 0px;
+            height: 0px;
+            overflow: hidden;
+        }
+        
+        .keyboard {
+            width: 100%;
+            height: 180px;
+            padding: 20px 69px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .animation {
+            float: right;
+            width: 239px;
+            height: 660px;
+            position: relative;
+        }
+        /********************************/
+        
+        .keyDiv {
+            margin: 3px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 26px;
+            text-transform: uppercase;
+            color: #000000;
+            background: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.25);
+        }
+        
+        .keyDiv:focus {
+            color: #ffffff;
+            background: #2EA1CD;
+            text-decoration: none;
+            outline: 0;
+        }
+        /**************************************/
+        
+        .wordBox {
+            margin-right: 27px;
+            display: flex;
+            max-width: 557px;
+        }
+        
+        .wordDiv {
+            border-bottom: 2px solid #b8b8b8;
+            margin-left: 4px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #2EA1CD;
+            border-radius: 1px;
+            float: left;
+            width: 37px;
+            height: 37px;
+            font-size: 27px;
+        }
+        
+        .wordDivIncorrect::before {
+            display: block;
+            content: "";
+            width: 11px;
+            height: 11px;
+            margin-left: 33px;
+            background: transparent url(../images/assets/erroTecla.png) no-repeat;
+            margin-top: -3px;
+            position: absolute;
+        }
+        
+        .clicked {
+            color: #b5b5b5;
+            background: #F2F2F2;
+            background: rgba(242, 242, 242, 1);
+            border-style: Solid;
+            border-color: #E2E2E2;
+            border-color: rgba(226, 226, 226, 1);
+            border-width: 1px;
+            border-radius: 8px;
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            box-shadow: none;
+        }
+        /**************************************/
+        
+        .tipDiv {
+            font-size: 14px;
+            line-height: 24px;
+            /*font-size: 13px;
+    line-height: 23px;*/
+            letter-spacing: 0.35px;
+            color: #6D6D6D;
+            background-color: #fff;
+            padding: 8px 17px;
+            border-radius: 5px;
+            border: 1px solid #e5e4e4;
+        }
+        
+        .tipDiv span {
+            color: #2EA1CD;
+        }
+        /**************************************/
+        
+        .tryAgain {
+            padding: 7px 2px;
+            background-color: #e64c3c;
+            color: #fff;
+            text-transform: uppercase;
+            width: 189px;
+            height: auto;
+            font-size: 14px;
+            text-align: center;
+            box-shadow: 0px 2px 0px #962228;
+            position: absolute;
+            border-radius: 2px;
+            top: 226px;
+            right: 85px;
+            z-index: 3;
+            cursor: pointer;
+        }
+        
+        .tryAgain:hover {
+            background-color: #962228;
+        }
+        
+        .gif {
+            position: absolute;
+            z-index: 1;
+            right: 0;
+        }
+        
+        .gifEnd {
+            position: absolute;
+            z-index: 1;
+        }
+        
+        .animationSprite {
+            right: 72px;
+            height: 504px;
+            position: absolute;
+            top: 0;
+            width: 194px;
+            background-image: url(../images/spritesheet/sprite.png);
+            z-index: 1;
+        }
+        
+        .gifText {
+            background-image: url(../images/assets/balao.png);
+            background-repeat: no-repeat;
+            color: #ffffff;
+            line-height: 40px;
+            text-transform: uppercase;
+            text-align: center;
+            width: 95px;
+            height: 56px;
+            position: relative;
+            left: 117px;
+            top: 161px;
+            font-size: 14px;
+            z-index: 3;
+        }
+        /**************************************/
+        
+        .carousel-indicators {
+            bottom: 35px;
+        }
+        
+        .carousel-indicators li {
+            width: 9px !important;
+            border-radius: 50px !important;
+            height: 9px !important;
+            background-color: #b5b5b5 !important;
+            margin-left: 14px;
+        }
+        
+        .carousel-indicators .active,
+        .carousel-indicators .wordCompleted.active,
+        .carousel-indicators .wordIncorrect.active {
+            background-color: #ffffff !important;
+            box-shadow: 0px 0px 0px 2px #2ea1cd inset;
+        }
+        
+        .carousel-indicators .wordCompleted {
+            background-color: #5cb621 !important;
+        }
+        
+        .wordCompleted::before {
+            display: block;
+            margin-top: -10px;
+            margin-left: -0.25em;
+            content: "";
+            width: 18px !important;
+            position: absolute;
+            height: 18px !important;
+            background: transparent url(../images/assets/certo.png) no-repeat;
+        }
+        
+        .carousel-indicators .wordIncorrect {
+            background-color: #e64c3c !important;
+        }
+        
+        .wordIncorrect::before {
+            display: block;
+            margin-top: -10px;
+            margin-left: -0.25em;
+            content: "";
+            width: 18px !important;
+            position: absolute;
+            height: 18px !important;
+            background: transparent url(../images/assets/errado.png) no-repeat;
+        }
+        
+        @media (min-width: 320px)and (max-width: 767px) {
+            #root {
+                width: 100%;
+                min-height: 100vh;
+                height: 100%;
+            }
+            #low-vision {
+                width: 100%;
+            }
+            #low-vision .btn-low-vision {
+                width: 20px;
+                height: 20px;
+                right: 8px;
+                float: right;
+            }
+            #low-vision span {
+                font-size: 12px;
+                top: 11px;
+                font-weight: normal;
+            }
+            #start {
+                background-size: cover;
+                background-position: center;
+            }
+            #app,
+            #carousel,
+            #start {
+                min-height: 100vh;
+            }
+            #carousel {
+                overflow-y: auto;
+            }
+            .carousel-item {
+                height: calc(100vh - 93px);
+                padding-bottom: 10px;
+            }
+            .carousel-inner {
+                height: auto;
+            }
+            .carousel-controls {
+                margin-top: 93px;
+            }
+            .carousel-controls .one {
+                margin-top: 27px;
+            }
+            .middle {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+            .animation {
+                position: absolute;
+            }
+            .tip {
+                width: 100%;
+                padding: 11px 11px 0px 11px;
+                height: auto;
+                top: 0;
+            }
+            .tip .tipDiv {
+                width: 100%;
+            }
+            .word {
+                padding: 10px;
+                height: auto;
+            }
+            .word .wordBox {
+                max-width: 100%;
+                margin: 0;
+                margin-right: 11px;
+            }
+            .wordDiv {
+                font-size: 117%;
+                max-width: 15px;
+                width: 15px;
+                height: 28px;
+                flex: auto;
+            }
+            .keyboard {
+                padding: 10px 5px 0 5px;
+                height: auto;
+                margin-top: 12px;
+            }
+            .keyDiv {
+                width: 30px;
+                height: 32px;
+                font-size: 21px;
+            }
+            .wordDivIncorrect::before {
+                margin-left: 22px;
+            }
+            .animation {
+                width: 100%;
+                height: 100%;
+            }
+            .carousel-controls {
+                position: relative;
+            }
+            .tryAgain {
+                width: auto;
+                padding: 7px 10px;
+                top: 50%;
+                right: 50%;
+                transform: translate(50%, 50%);
+            }
+        }
+        /**************************************/
+        
+        .carousel-controls {
+            bottom: 0;
+        }
+        
+        .carousel-control-next,
+        .carousel-control-prev {
+            position: absolute;
+            top: auto;
+            bottom: 0;
+            height: 40px;
+            width: 50%;
+            background-color: #e5e5e5 !important;
+            color: #acacac;
+            opacity: 100 !important;
+            font-family: Roboto;
+            font-size: 14px;
+            letter-spacing: 0.03em;
+        }
+        
+        .carousel-control-next:focus,
+        .carousel-control-next:hover,
+        .carousel-control-prev:focus,
+        .carousel-control-prev:hover {
+            background-color: #2ea1cd !important;
+            color: #ffffff !important;
+        }
